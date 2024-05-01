@@ -1,0 +1,17 @@
+<%- include('partials/head.ejs')%>
+
+SHOW PAGE
+
+<div class="container rounded bg-white  w-1/3 mx-auto flex-col py-3">
+
+    <h1><%= car.name %></h1>
+    <p><%= car.description %></p>
+    
+    <form action="/car/<%= car._id%>/?_method=DELETE" method="POST">
+        <button type="submit" >Delete</button>
+        <a href="/car/<%= car._id%>/edit" >Edit</a>
+    </form>
+        
+</div>
+
+<%- include('partials/foot.ejs')%>

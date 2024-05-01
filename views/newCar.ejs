@@ -1,0 +1,14 @@
+<%- include('partials/head.ejs')%>
+
+<h1>Add New Car</h1>
+
+<form action="/cars" method="POST">
+    <label for="car-name">Title</label><br>
+    <input type="text" id="car-name" name="car-name"><br>
+
+    <label for="car-description">Content</label><br>
+    <textarea name="car-description" id="car-description" cols="30" rows="10"></textarea><br>
+    <button type="submit">Submit</button>
+</form>
+
+<%- include('partials/foot.ejs')%>
