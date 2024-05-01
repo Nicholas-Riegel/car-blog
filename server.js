@@ -70,6 +70,7 @@ app.put('/cars/:id', async (req, res)=>{
 // DELETE	/car/:id	Delete	delete	Remove a specific car from the list.
 app.delete('/cars/:id', async (req, res)=>{
     await Car.findByIdAndDelete(req.params.id)
+    await Post.deleteMany({carId: req.params.id})
     res.redirect('/cars')
 })
 
