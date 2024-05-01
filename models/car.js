@@ -5,4 +5,4 @@ const carSchema = new mongoose.Schema({
     description: {type: String, require: true}
 })
 
-module.exports = mongoose.model('car', carSchema)
+module.exports = mongoose.model('Car', carSchema)

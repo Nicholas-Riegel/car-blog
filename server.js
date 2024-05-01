@@ -48,7 +48,7 @@ app.post('/cars', async (req, res)=>{
 // GET	/car/:id	Read	show	Display a specific car’s details.
 app.get('/cars/:id', async (req, res) => {
     const car = await Car.findById(req.params.id)
-    const allPosts = await Post.find()
+    const allPosts = await Post.find({ carId: req.params.id })
     res.render('showCar.ejs', {car, allPosts})
 })
 
@@ -80,7 +80,8 @@ app.delete('/cars/:id', async (req, res)=>{
 app.post('/cars/:carId/posts', async (req, res)=>{
     await Post.create({
         title: req.body['post-title'],
-        body: req.body['post-body']
+        body: req.body['post-body'],
+        carId: req.params.carId
     })
     res.redirect(`/cars/${req.params.carId}`)
 })
