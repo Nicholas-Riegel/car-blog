@@ -1,17 +1,47 @@
 <%- include('partials/head.ejs')%>
 
-SHOW PAGE
+<h1>SHOW PAGE</h1>
 
+<!-- display car -->
 <div class="container rounded bg-white  w-1/3 mx-auto flex-col py-3">
 
     <h1><%= car.name %></h1>
     <p><%= car.description %></p>
     
-    <form action="/car/<%= car._id%>/?_method=DELETE" method="POST">
+    <form action="/cars/<%= car._id%>/?_method=DELETE" method="POST">
         <button type="submit" >Delete</button>
-        <a href="/car/<%= car._id%>/edit" >Edit</a>
+        <a href="/cars/<%= car._id%>/edit" >Edit</a>
     </form>
         
 </div>
+<hr>
+<hr>
+
+<!-- make post -->
+<form action="/cars/<%= car._id%>/posts" method="POST">
+
+    <label for="post-title">Title</label><br>
+    <input type="text" id="post-title" name="post-title"><br>
+
+    <label for="car-description">Content</label><br>
+    <textarea name="post-body" id="post-body" cols="30" rows="10"></textarea><br>
+    <button type="submit">Submit</button>
+
+</form>
+<hr>
+<hr>
+
+<!-- show posts -->
+<% allPosts.forEach(x=>{ %>
+    <div>
+        <h1><%= x.title %></h1>
+        <p><%= x.body %></p>
+        <form action="/cars/<%= car._id%>/posts/<%= x._id %>?_method=DELETE" method="POST">
+            <button type="submit" >Delete</button>
+            <a href="/cars/<%= car._id%>/posts/<%= x._id %>/edit" >Edit</a>
+        </form>
+    </div>
+    <hr> 
+<% }) %>
 
 <%- include('partials/foot.ejs')%>

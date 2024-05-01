@@ -1,0 +1,17 @@
+<%- include('partials/head')%>
+
+<h1>EDIT PAGE</h1>
+
+<form action="/cars/<%= carId %>/posts/<%= post._id %>/?_method=PUT" method="POST">
+
+    <label for="post-title">Title</label><br>
+    <input type="text" id="post-title" name="post-title" value="<%= post.title %>"><br>
+
+    <label for="post-body">Content</label><br>
+    <textarea name="post-body" id="post-body" cols="30" rows="10"><%= post.body %></textarea><br>
+    
+    <button type="submit">Submit</button>
+
+</form>
+
+<%- include('partials/foot')%>
