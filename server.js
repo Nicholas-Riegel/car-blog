@@ -75,7 +75,7 @@ app.delete('/cars/:id', async (req, res)=>{
 })
 
 
-// POST ROUTES
+// COMMENT-POST ROUTES
 
 // POST	/cars/:carId/posts	Create	Add a new post to the list.
 app.post('/cars/:carId/posts', async (req, res)=>{
