@@ -8,38 +8,51 @@
     <h1><%= car.name %></h1>
     <p><%= car.description %></p>
     
-    <form action="/cars/<%= car._id%>/?_method=DELETE" method="POST">
-        <button type="submit" >Delete</button>
-        <a href="/cars/<%= car._id%>/edit" >Edit</a>
-    </form>
+    <% if (user && car.userId.toString() === user.id){ %>
         
-</div>
-<hr>
-<hr>
+        <form action="/cars/<%= car._id%>/?_method=DELETE" method="POST">
+            <button type="submit" >Delete</button>
+            <a href="/cars/<%= car._id%>/edit" >Edit</a>
+        </form>
+        
+    <% }%>
+        
+    </div>
+    <hr>
+    <hr>
+    
+    <!-- make post -->
+    
+    <% if (user){ %>
+        <form action="/cars/<%= car._id%>/posts" method="POST">
+            
+            <label for="post-title">Title</label><br>
+            <input type="text" id="post-title" name="post-title"><br>
+            
+            <label for="car-description">Content</label><br>
+            <textarea name="post-body" id="post-body" cols="30" rows="10"></textarea><br>
 
-<!-- make post -->
-<form action="/cars/<%= car._id%>/posts" method="POST">
-
-    <label for="post-title">Title</label><br>
-    <input type="text" id="post-title" name="post-title"><br>
-
-    <label for="car-description">Content</label><br>
-    <textarea name="post-body" id="post-body" cols="30" rows="10"></textarea><br>
-    <button type="submit">Submit</button>
-
-</form>
-<hr>
-<hr>
+            <input type="hidden" name="userId" value=<%= user.id %> />
+            
+            <button type="submit">Submit</button>
+            
+        </form>
+    <% }%>
+    
+    <hr>
+    <hr>
 
 <!-- show posts -->
 <% allPosts.forEach(x=>{ %>
     <div>
         <h1><%= x.title %></h1>
         <p><%= x.body %></p>
-        <form action="/cars/<%= car._id%>/posts/<%= x._id %>?_method=DELETE" method="POST">
-            <button type="submit" >Delete</button>
-            <a href="/cars/<%= car._id%>/posts/<%= x._id %>/edit" >Edit</a>
-        </form>
+        <% if (user && x.userId === user.id) { %>
+            <form action="/cars/<%= car._id%>/posts/<%= x._id %>?_method=DELETE" method="POST">
+                <button type="submit" >Delete</button>
+                <a href="/cars/<%= car._id%>/posts/<%= x._id %>/edit" >Edit</a>
+            </form>
+        <% } %>
     </div>
     <hr> 
 <% }) %>

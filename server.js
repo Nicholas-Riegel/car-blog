@@ -5,14 +5,26 @@ const app = express()
 const mongoose = require('mongoose')
 require('dotenv').config()
 const methodOverride = require('method-override')
+const session = require('express-session')
 const port = 3000
+
+//-----------------------------Models and Controllers---------------------------------------------
+
 const Car = require('./models/car')
 const Post = require('./models/post')
+const User = require('./models/user')
+const authController = require("./controllers/auth.js");
 
 //----------------------------Middleware--------------------------------------------
 
 app.use(express.urlencoded({extended: false}))
 app.use(methodOverride('_method'))
+app.use(session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: true,
+    })
+);
 
 //----------------------------DB Connection--------------------------------------------
 
@@ -28,19 +40,30 @@ mongoose.connection.on('connected', ()=>{
 // GET	/cars	Read	index	Display a list of all cars.
 app.get('/cars', async (req, res)=>{
     const allCars = await Car.find();
-    res.render('home.ejs', {allCars})
+    res.render('home.ejs', {
+        user: req.session.user,
+        allCars
+    })
 })
+
+// Authorization
+app.use("/auth", authController);
 
 // GET	/cars/new	Read	Show a form to add a new car.
 app.get('/cars/new', (req, res)=>{
-    res.render('newCar.ejs')
+    if (req.session.user){
+        res.render('newCar.ejs', {user: req.session.user})
+    } else {
+        res.redirect("/auth/sign-in")
+    }
 })
 
 // POST	/car	Create	Add a new car to the list.
 app.post('/cars', async (req, res)=>{
     await Car.create({
         name: req.body['car-name'],
-        description: req.body['car-description']
+        description: req.body['car-description'],
+        userId: req.session.user.id
     })
     res.redirect('/cars')
 })
@@ -49,7 +72,11 @@ app.post('/cars', async (req, res)=>{
 app.get('/cars/:id', async (req, res) => {
     const car = await Car.findById(req.params.id)
     const allPosts = await Post.find({ carId: req.params.id })
-    res.render('showCar.ejs', {car, allPosts})
+    res.render('showCar.ejs', {
+        car, 
+        allPosts,
+        user: req.session.user
+    })
 })
 
 // GET	/car/:id/edit	Read	edit	Show a form to edit an existing car’s details.
@@ -79,10 +106,14 @@ app.delete('/cars/:id', async (req, res)=>{
 
 // POST	/cars/:carId/posts	Create	Add a new post to the list.
 app.post('/cars/:carId/posts', async (req, res)=>{
+    // console.log('from post route', req.session.user);
+    const userId = req.session.user.id.toString()
     await Post.create({
         title: req.body['post-title'],
         body: req.body['post-body'],
-        carId: req.params.carId
+        carId: req.params.carId,
+        // userId: req.body.userId
+        userId
     })
     res.redirect(`/cars/${req.params.carId}`)
 })
@@ -90,10 +121,15 @@ app.post('/cars/:carId/posts', async (req, res)=>{
 // GET	/cars/:carId/posts/:postId/edit	Read	edit	Show a form to edit an existing car’s details.
 app.get('/cars/:carId/posts/:postId/edit', async (req, res)=>{
     const post = await Post.findById(req.params.postId)
-    res.render('editPost.ejs', {
-        carId: req.params.carId,
-        post
-    })
+    if (req.session.user){
+        res.render('editPost.ejs', {
+            carId: req.params.carId,
+            post,
+            user: req.session.user
+        })
+    } else {
+        res.redirect('/auth/sign-up')
+    }
 })
 
 // PUT	/cars/:carId/posts/:postId	Update	update	Update a specific car’s details.
