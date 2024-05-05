@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 
+router.use(express.static('public'));
+
+
 const User = require("../models/user.js");
 
 // the /auth part of the url is already defined in the server

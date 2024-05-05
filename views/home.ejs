@@ -1,11 +1,16 @@
 <%- include('partials/head.ejs')%>
+<div class="main">
 
-<h1>Home Page</h1>
+    <div class="page-title">
+        <h1>Nick's Car Blog</h1>
+    </div>
+        
+    <% allCars.forEach(x=>{ %>
+        <div class="home-car">
+            <h1 class="text-center"><a href='/cars/<%= x._id%>'><%= x.name%></a></h1>
+        </div> 
+    <% }) %>
 
-<% allCars.forEach(x=>{ %>
-    <div class="post-container rounded bg-white mb-7 w-1/3 mx-auto">
-        <h1 class="text-center"><a href='/cars/<%= x._id%>'><%= x.name%></a></h1>
-    </div> 
-<% }) %>
+</div>
 
 <%- include('partials/foot.ejs')%>

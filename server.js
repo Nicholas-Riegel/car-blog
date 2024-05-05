@@ -18,6 +18,7 @@ const authController = require("./controllers/auth.js");
 //----------------------------Middleware--------------------------------------------
 
 app.use(express.urlencoded({extended: false}))
+app.use(express.static('public'));
 app.use(methodOverride('_method'))
 app.use(session({
         secret: process.env.SESSION_SECRET,

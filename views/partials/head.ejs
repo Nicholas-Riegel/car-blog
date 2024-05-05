@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
     <title>Document</title>
 </head>
 <body>
@@ -10,11 +11,15 @@
         <a href="/cars">Home</a>
         <% if (user) { %>
             <a href="/cars/new">Add Car</a>
-            <p>Welcome, <%= user.username %></p>
-            <a href="/auth/sign-out">Sign out</a>
+            <div class="auth-group">
+                <p>Welcome, <%= user.username %></p>
+                <a href="/auth/sign-out">Sign out</a>
+            </div>
         <% } else { %>
-            <p>Welcome, Guest</p>
-            <a href="/auth/sign-in">Sign in</a>
-            <a href="/auth/sign-up">Sign up</a>
+            <div class="auth-group">
+                <p>Welcome, Guest</p>
+                <a href="/auth/sign-in">Sign in</a>
+                <a href="/auth/sign-up">Sign up</a>
+            </div>
         <% } %>
     </nav>

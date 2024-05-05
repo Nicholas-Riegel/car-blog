@@ -1,0 +1,77 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    border: 0;
+    border: 1px solid black;
+}
+
+body{
+    /* background-color: rgb(115, 115, 228); */
+    background-image: url("https://i.imgur.com/Pb0vn1U.jpeg");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    height: 100vh;
+}
+
+body a{
+    color: white;
+}
+
+nav{
+    display: flex;
+    padding: 10px 20px;
+    background-color: gray;
+    color: white;
+}
+
+nav a{
+    color:white;
+}
+
+.auth-group{
+    display: flex;
+    margin-left: auto;
+}
+
+.auth-group a{
+    margin-left: 10px;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-title{
+    margin: 20px 0;
+}
+
+.home-car{
+    width: 33%;
+    margin-bottom: 20px;
+}
+
+.show-car{
+    width: 33%;
+}
+
+.comments-container{
+    margin-top: 30px;
+    width: 40%;
+}
+
+.comments-container > div {
+    background-color: white;
+    color: black;
+    border-radius: 15px;
+    margin: 10px 0;
+    padding: 10px 20px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}

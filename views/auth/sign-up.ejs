@@ -1,6 +1,8 @@
 <%- include('../partials/head.ejs')%>
-
-    <h1>Create a new account!</h1>
+<div class="main">
+    <div class="page-title">
+        <h1>Sign up</h1>
+    </div>
     <form action="/auth/sign-up" method="POST">
       
         <label for="username">Username:</label>
@@ -14,5 +16,7 @@
       
         <button type="submit">Sign up</button>
     </form>
+
+</div>
 
 <%- include('../partials/foot')%>
