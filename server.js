@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 const methodOverride = require('method-override')
 const session = require('express-session')
+const MongoStore = require("connect-mongo");
 const port = 3000
 
 //-----------------------------Models and Controllers---------------------------------------------
@@ -24,6 +25,9 @@ app.use(session({
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: true,
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGODB_URI,
+        }),
     })
 );
 

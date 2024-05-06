@@ -11,10 +11,9 @@
         <img src=<%= car.pictureUrl %> alt="">
         <p><%= car.description %></p>
         
-    </div>
-
-    <!-- comment input -->
-    
+        
+        <!-- comment input -->
+        
         <% if (user && car.userId.toString() === user.id){ %>
             
             <form action="/cars/<%= car._id%>/?_method=DELETE" method="POST">
@@ -22,8 +21,9 @@
                 <a href="/cars/<%= car._id%>/edit" >Edit</a>
             </form>
             
-        <% }%>
+            <% }%>
             
+        </div>
         
         <!-- make post -->
         
