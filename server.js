@@ -15,6 +15,7 @@ const Car = require('./models/car')
 const Post = require('./models/post')
 const User = require('./models/user')
 const authController = require("./controllers/auth.js");
+const isSignedIn = require('./middleware/is-signed-in.js')
 
 //----------------------------Middleware--------------------------------------------
 
@@ -42,6 +43,9 @@ mongoose.connection.on('connected', ()=>{
 
 // CAR ROUTES
 
+// Authorization
+app.use("/auth", authController);
+
 // GET	/cars	Read	index	Display a list of all cars.
 app.get('/cars', async (req, res)=>{
     const allCars = await Car.find();
@@ -51,11 +55,8 @@ app.get('/cars', async (req, res)=>{
     })
 })
 
-// Authorization
-app.use("/auth", authController);
-
 // GET	/cars/new	Read	Show a form to add a new car.
-app.get('/cars/new', (req, res)=>{
+app.get('/cars/new', isSignedIn, (req, res)=>{
     if (req.session.user){
         res.render('newCar.ejs', {user: req.session.user})
     } else {
@@ -64,7 +65,7 @@ app.get('/cars/new', (req, res)=>{
 })
 
 // POST	/car	Create	Add a new car to the list.
-app.post('/cars', async (req, res)=>{
+app.post('/cars', isSignedIn, async (req, res)=>{
     await Car.create({
         name: req.body['car-name'],
         pictureUrl: req.body['picture-url'],
@@ -87,14 +88,14 @@ app.get('/cars/:id', async (req, res) => {
 })
 
 // GET	/car/:id/edit	Read	edit	Show a form to edit an existing car’s details.
-app.get('/cars/:id/edit', async (req, res)=>{
+app.get('/cars/:id/edit', isSignedIn, async (req, res)=>{
     const user = req.session.user;
     const car = await Car.findById(req.params.id)
     res.render('editCar.ejs', {car, user})
 })
 
 // PUT	/blog/:id	Update	update	Update a specific car’s details.
-app.put('/cars/:id', async (req, res)=>{
+app.put('/cars/:id', isSignedIn, async (req, res)=>{
     await Car.findByIdAndUpdate(req.params.id, {
         name: req.body['car-name'],
         description: req.body['car-description']
@@ -103,7 +104,7 @@ app.put('/cars/:id', async (req, res)=>{
 })
 
 // DELETE	/car/:id	Delete	delete	Remove a specific car from the list.
-app.delete('/cars/:id', async (req, res)=>{
+app.delete('/cars/:id', isSignedIn, async (req, res)=>{
     await Car.findByIdAndDelete(req.params.id)
     await Post.deleteMany({carId: req.params.id})
     res.redirect('/cars')
@@ -113,7 +114,7 @@ app.delete('/cars/:id', async (req, res)=>{
 // COMMENT-POST ROUTES
 
 // POST	/cars/:carId/posts	Create	Add a new post to the list.
-app.post('/cars/:carId/posts', async (req, res)=>{
+app.post('/cars/:carId/posts', isSignedIn, async (req, res)=>{
     const userId = req.session.user.id.toString()
     await Post.create({
         authorName: req.body['author-name'],
@@ -125,7 +126,7 @@ app.post('/cars/:carId/posts', async (req, res)=>{
 })
 
 // GET	/cars/:carId/posts/:postId/edit	Read	edit	Show a form to edit an existing car’s details.
-app.get('/cars/:carId/posts/:postId/edit', async (req, res)=>{
+app.get('/cars/:carId/posts/:postId/edit', isSignedIn, async (req, res)=>{
     const post = await Post.findById(req.params.postId)
     if (req.session.user){
         res.render('editPost.ejs', {
@@ -139,7 +140,7 @@ app.get('/cars/:carId/posts/:postId/edit', async (req, res)=>{
 })
 
 // PUT	/cars/:carId/posts/:postId	Update	update	Update a specific car’s details.
-app.put('/cars/:carId/posts/:postId', async (req, res)=>{
+app.put('/cars/:carId/posts/:postId', isSignedIn, async (req, res)=>{
     await Post.findByIdAndUpdate(req.params.postId, {
         title: req.body['post-title'],
         body: req.body['post-body']
@@ -148,7 +149,7 @@ app.put('/cars/:carId/posts/:postId', async (req, res)=>{
 })
 
 // DELETE	/cars/:carId/posts/:postId	Delete	delete	Remove a specific car from the list.
-app.delete('/cars/:carId/posts/:postId', async (req, res)=>{
+app.delete('/cars/:carId/posts/:postId', isSignedIn, async (req, res)=>{
     await Post.findByIdAndDelete(req.params.postId)
     res.redirect(`/cars/${req.params.carId}`)
 })
