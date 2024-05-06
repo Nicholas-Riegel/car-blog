@@ -67,8 +67,8 @@ nav{
     display: flex;
     padding: 20px 60px;
     background-color: rgb(42, 41, 59);
-    opacity: .8;
-    color: whitesmoke;
+    /* opacity: .8; */
+    color: white;
     width: 100%;
     top: 0;
     font-size: large;
@@ -80,12 +80,13 @@ nav > a {
 }
 
 nav a{
-    color:white;
+    /* color:white; */
     text-decoration: none;
 }
 
 nav a:hover{
-    color: rgb(174, 227, 227);
+    /* color: rgb(174, 227, 227); */
+    color: red;
 }
 
 .auth-group{
