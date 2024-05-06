@@ -5,8 +5,9 @@
     /* border: 1px solid red; */
 }
 
+/* body */
+
 body{
-    /* background-color: rgb(115, 115, 228); */
     font-family: helvetica, sans-serif;
     background-image: url("https://i.imgur.com/Pb0vn1U.jpeg");
     background-size: cover;
@@ -20,6 +21,47 @@ body a{
     color: white;
 }
 
+/* buttons */
+
+button, .button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+    font-size: small;
+    display: inline-block;
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.delete-btn{
+    background-color: red;
+    margin-left: 5px;
+}
+.delete-btn:hover {
+    background-color: red;
+}
+
+.edit-btn{
+    background-color: green;
+    display: inline-block;
+}
+
+.edit-btn:hover{
+    background-color: green;
+}
+
+.submit-btn{
+    background-color: blue;
+}
+
+.submit-btn:hover{
+    background-color: blue;
+}
+
+/* nav  */
+
 nav{
     position: fixed;
     display: flex;
@@ -31,6 +73,10 @@ nav{
     top: 0;
     font-size: large;
     font-weight:bold;
+}
+
+nav > a {
+    margin-right: 20px;
 }
 
 nav a{
@@ -47,15 +93,13 @@ nav a:hover{
     margin-left: auto;
 }
 
-.auth-group p{
-    /* margin-right: 30px; */
-}
-
 .auth-group a{
     margin-left: 20px;
 }
 
-.main{
+/* main */
+
+main{
     margin-top: 70px;
     display: flex;
     flex-direction: column;
@@ -68,9 +112,11 @@ nav a:hover{
 }
 
 img{
-    width: 600px;
+    width: 700px;
     display: block;
 }
+
+/* homepage */
 
 .home-car{
     /* width: 33%; */
@@ -92,19 +138,28 @@ img{
     background-color: rgb(81, 75, 75);
 }
 
+/* show page */
+
 .show-car{
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: hidden;
 }
 
-.show-car p {
+.show-car-text-box {
     padding: 5px 10px;
-    background-color: rgb(81, 75, 75);
+    background-color: whitesmoke;
+    color: black;
+    display: flex;
+    flex-direction: column;
+}
+
+.show-car-text-box form {
+    margin-left: auto;
 }
 
 .comments-container{
     margin-top: 30px;
-    width: 40%;
+    width: 700px;
 }
 
 .comments-container > div {
@@ -114,12 +169,41 @@ img{
     margin: 10px 0;
     padding: 10px 20px;
 }
+#comment-input-wrapper{
+    margin-top: 30px;
+}
+
+.comments-container div{
+    display: flex;
+    flex-direction: column;
+}
+.comments-container div form{
+    align-self: flex-end;
+}
+
+.comment-input-div{
+    width: 700px;
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.comment-input-div textarea{
+    width: 100%;
+}
+.comment-input-div form button {
+    display: block;
+    margin-left: auto;
+}
+
+/* auth forms */
 
 .auth-form{
     display: flex;
     flex-direction: column;
     background-color: whitesmoke;
-    /* opacity: .7; */
     width: 500px;
     color: black;
     padding: 40px;
@@ -128,17 +212,9 @@ img{
 }
 
 .auth-form button {
-    /* margin-left: auto; */
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #3498db;
-    color: white;
-    border: none;
     align-self: flex-end;
-    /* margin-top: 10px; */
-    font-size: large;
-    font-weight: 600;
+    /* font-size: large;
+    font-weight: 600; */
 }
       
 .auth-form button:hover {
@@ -156,4 +232,39 @@ img{
     border-radius: 5px;
     height: 30px;
     border: 1px solid black;
+}
+
+/* new car form */
+.new-car-form {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 15px;
+    padding: 20px;
+    width: 700px;
+}
+
+.new-car-form button{
+    margin-left: auto;
+}
+
+.new-car-form input {
+    width: 100%;
+    border-radius: 5px;
+    height: 30px;
+    border: 1px solid black;
+}
+
+.new-car-form textarea{
+    width: 100%;
+    border-radius: 5px;
+    height: 200px;
+    border: 1px solid black;
+}
+
+.new-car-form label{
+    margin-bottom: 10px;
+    font-size: large;
+    font-weight: 400;
 }

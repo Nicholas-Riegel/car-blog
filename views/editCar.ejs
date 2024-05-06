@@ -1,14 +1,25 @@
 <%- include('partials/head.ejs')%>
+<main>
 
-<h1>Edit Car</h1>
+    <h1 class="page-title">Edit Car</h1>
+    
+    <form action="/cars/<%= car._id %>/?_method=PUT" method="POST" class="new-car-form">
 
-<form action="/cars/<%= car._id %>/?_method=PUT" method="POST">
-    <label for="car-name">Car Name</label><br>
-    <input type="text" id="car-name" name="car-name" value="<%= car.name %>"><br>
+        <label for="car-name">Car Name<br>
+            <input type="text" id="car-name" name="car-name" value="<%= car.name %>">
+        </label><br>
+        
+        <label for="picture-url">Picture URL<br>
+            <input type="text" id="picture-url" name="picture-url" value="<%= car.pictureUrl %>">
+        </label><br>
 
-    <label for="car-description">Description</label><br>
-    <textarea name="car-description" id="car-description" cols="30" rows="10"><%= car.description %></textarea><br>
-    <button type="submit">Submit</button>
-</form>
+        <label for="car-description">Description<br>
+            <textarea name="car-description" id="car-description" cols="30" rows="10"><%= car.description %></textarea>
+        </label><br>
+        
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+
+</main>
 
 <%- include('partials/foot.ejs')%>

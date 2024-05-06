@@ -1,5 +1,5 @@
 <%- include('partials/head.ejs')%>
-<div class="main">
+<main>
 
     <div class="page-title">
         <h1><%= car.name %></h1>
@@ -9,63 +9,66 @@
     <div class="show-car">
 
         <img src=<%= car.pictureUrl %> alt="">
-        <p><%= car.description %></p>
-        
-        
-        <!-- comment input -->
-        
-        <% if (user && car.userId.toString() === user.id){ %>
-            
-            <form action="/cars/<%= car._id%>/?_method=DELETE" method="POST">
-                <button type="submit">Delete</button>
-                <a href="/cars/<%= car._id%>/edit" >Edit</a>
-            </form>
-            
+        <div class="show-car-text-box">
+            <p><%= car.description %></p>
+            <% if (user && car.userId.toString() === user.id){ %>
+                
+                <form action="/cars/<%= car._id%>/?_method=DELETE" method="POST">
+                    <a href="/cars/<%= car._id%>/edit" class="button edit-btn">Edit</a>
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
+                
             <% }%>
-            
         </div>
         
-        <!-- make post -->
-        
-        <% if (user){ %>
+    </div>
+    
+    <!-- make post -->
+    
+    <% if (user){ %>
 
+        <div id="comment-input-wrapper">
+        
+            <h2>Add Comment</h2>
+            
             <div class="comment-input-div">
             
                 <h2><%= user.name %></h2>
 
                 <form action="/cars/<%= car._id%>/posts" method="POST">
                     
-                    <label for="car-description">Comment</label><br>
                     <textarea name="post-body" id="post-body" cols="30" rows="10"></textarea><br>
 
                     <input type="hidden" name="author-name" value=<%= user.name %> />
                     <input type="hidden" name="userId" value=<%= user.id %> />
                     
-                    <button type="submit">Submit</button>
+                    <button type="submit" class="submit-btn">Submit</button>
                     
                 </form>
             
             </div>
 
-        <% }%>
+        </div>
+    
+    <% }%>
         
     <!-- show posts -->
     <div class="comments-container">
         <h2>Comments</h2>
         <% allPosts.forEach(x=>{ %>
             <div>
-                <h1><%= x.authorName %></h1>
+                <h2><%= x.authorName %></h2>
                 <p><%= x.body %></p>
                 <% if (user && x.userId === user.id) { %>
                     <form action="/cars/<%= car._id%>/posts/<%= x._id %>?_method=DELETE" method="POST">
-                        <button type="submit" >Delete</button>
-                        <a href="/cars/<%= car._id%>/posts/<%= x._id %>/edit" >Edit</a>
+                        <a href="/cars/<%= car._id%>/posts/<%= x._id %>/edit" class="button edit-btn">Edit</a>
+                        <button type="submit" class="delete-btn">Delete</button>
                     </form>
                 <% } %>
             </div>
         <% }) %>
     </div>  
-</div>
+</main>
 
 <%- include('partials/foot.ejs')%>
             

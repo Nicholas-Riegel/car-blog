@@ -1,17 +1,22 @@
 <%- include('partials/head.ejs')%>
+<main>
 
-<h1>Add New Car</h1>
-
-<form action="/cars" method="POST">
-    <label for="car-name">Car Name</label><br>
-    <input type="text" id="car-name" name="car-name"><br>
-
-    <label for="picture-url">Picture URL</label><br>
-    <input type="text" id="picture-url" name="picture-url">
-
-    <label for="car-description">Car Description</label><br>
-    <textarea name="car-description" id="car-description" cols="30" rows="10"></textarea><br>
-    <button type="submit">Submit</button>
-</form>
-
+    <h1 class="page-title">Add New Car</h1>
+    
+    <form action="/cars" method="POST" class="new-car-form">
+        <label for="car-name">Car Name<br>
+            <input type="text" id="car-name" name="car-name"><br>
+        </label><br>
+        
+        <label for="picture-url">Picture URL<br>
+            <input type="text" id="picture-url" name="picture-url">
+        </label><br>
+        
+        <label for="car-description">Car Description<br>
+            <textarea name="car-description" id="car-description" cols="30" rows="10"></textarea>
+        </label><br>
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+    
+</main>
 <%- include('partials/foot.ejs')%>
