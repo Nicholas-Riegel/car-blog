@@ -8,8 +8,9 @@
     <div class="show-car">
 
         <h1><%= car.name %></h1>
+        <img src=<%= car.pictureUrl %> alt="">
         <p><%= car.description %></p>
-        
+
         <% if (user && car.userId.toString() === user.id){ %>
             
             <form action="/cars/<%= car._id%>/?_method=DELETE" method="POST">
@@ -24,19 +25,25 @@
         <!-- make post -->
         
         <% if (user){ %>
-            <form action="/cars/<%= car._id%>/posts" method="POST">
-                
-                <label for="post-title">Title</label><br>
-                <input type="text" id="post-title" name="post-title"><br>
-                
-                <label for="car-description">Content</label><br>
-                <textarea name="post-body" id="post-body" cols="30" rows="10"></textarea><br>
 
-                <input type="hidden" name="userId" value=<%= user.id %> />
-                
-                <button type="submit">Submit</button>
-                
-            </form>
+            <div class="comment-input-div">
+            
+                <h2><%= user.name %></h2>
+
+                <form action="/cars/<%= car._id%>/posts" method="POST">
+                    
+                    <label for="car-description">Comment</label><br>
+                    <textarea name="post-body" id="post-body" cols="30" rows="10"></textarea><br>
+
+                    <input type="hidden" name="author-name" value=<%= user.name %> />
+                    <input type="hidden" name="userId" value=<%= user.id %> />
+                    
+                    <button type="submit">Submit</button>
+                    
+                </form>
+            
+            </div>
+
         <% }%>
         
     <!-- show posts -->
@@ -44,7 +51,7 @@
         <h2>Comments</h2>
         <% allPosts.forEach(x=>{ %>
             <div>
-                <h1><%= x.title %></h1>
+                <h1><%= x.authorName %></h1>
                 <p><%= x.body %></p>
                 <% if (user && x.userId === user.id) { %>
                     <form action="/cars/<%= car._id%>/posts/<%= x._id %>?_method=DELETE" method="POST">

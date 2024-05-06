@@ -63,6 +63,7 @@ app.get('/cars/new', (req, res)=>{
 app.post('/cars', async (req, res)=>{
     await Car.create({
         name: req.body['car-name'],
+        pictureUrl: req.body['picture-url'],
         description: req.body['car-description'],
         userId: req.session.user.id
     })
@@ -71,19 +72,21 @@ app.post('/cars', async (req, res)=>{
 
 // GET	/car/:id	Read	show	Display a specific car’s details.
 app.get('/cars/:id', async (req, res) => {
+    const user = req.session.user;
     const car = await Car.findById(req.params.id)
     const allPosts = await Post.find({ carId: req.params.id })
     res.render('showCar.ejs', {
         car, 
         allPosts,
-        user: req.session.user
+        user
     })
 })
 
 // GET	/car/:id/edit	Read	edit	Show a form to edit an existing car’s details.
 app.get('/cars/:id/edit', async (req, res)=>{
+    const user = req.session.user;
     const car = await Car.findById(req.params.id)
-    res.render('editCar.ejs', {car})
+    res.render('editCar.ejs', {car, user})
 })
 
 // PUT	/blog/:id	Update	update	Update a specific car’s details.
@@ -110,7 +113,8 @@ app.post('/cars/:carId/posts', async (req, res)=>{
     // console.log('from post route', req.session.user);
     const userId = req.session.user.id.toString()
     await Post.create({
-        title: req.body['post-title'],
+        // title: req.body['post-title'],
+        authorName: req.body['author-name'],
         body: req.body['post-body'],
         carId: req.params.carId,
         // userId: req.body.userId

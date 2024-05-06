@@ -2,7 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     border: 0;
-    border: 1px solid black;
+    /* border: 1px solid red; */
 }
 
 body{
@@ -10,8 +10,9 @@ body{
     background-image: url("https://i.imgur.com/Pb0vn1U.jpeg");
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     color: white;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 body a{
@@ -19,10 +20,13 @@ body a{
 }
 
 nav{
+    position: fixed;
     display: flex;
     padding: 10px 20px;
     background-color: gray;
     color: white;
+    width: 100%;
+    top: 0;
 }
 
 nav a{
@@ -39,6 +43,7 @@ nav a{
 }
 
 .main{
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -49,13 +54,22 @@ nav a{
     margin: 20px 0;
 }
 
+img{
+    width: 600px;
+    display: block;
+}
+
 .home-car{
-    width: 33%;
+    /* width: 33%; */
     margin-bottom: 20px;
 }
 
+.home-car h1{
+    background-color: black;
+}
+
 .show-car{
-    width: 33%;
+    /* width: 33%; */
 }
 
 .comments-container{

@@ -3,10 +3,10 @@
 <h1>Edit Car</h1>
 
 <form action="/cars/<%= car._id %>/?_method=PUT" method="POST">
-    <label for="car-name">Title</label><br>
+    <label for="car-name">Car Name</label><br>
     <input type="text" id="car-name" name="car-name" value="<%= car.name %>"><br>
 
-    <label for="car-description">Content</label><br>
+    <label for="car-description">Description</label><br>
     <textarea name="car-description" id="car-description" cols="30" rows="10"><%= car.description %></textarea><br>
     <button type="submit">Submit</button>
 </form>

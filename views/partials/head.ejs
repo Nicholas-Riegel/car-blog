@@ -12,7 +12,7 @@
         <% if (user) { %>
             <a href="/cars/new">Add Car</a>
             <div class="auth-group">
-                <p>Welcome, <%= user.username %></p>
+                <p>Welcome, <%= user.name %></p>
                 <a href="/auth/sign-out">Sign out</a>
             </div>
         <% } else { %>

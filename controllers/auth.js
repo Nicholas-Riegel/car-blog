@@ -35,7 +35,8 @@ router.post("/sign-up", async (req, res) => {
     });
     
     req.session.user = {
-        username: user.username,
+        name: user.username,
+        id: user._id
     };
     
     req.session.save(() => {
@@ -69,7 +70,7 @@ router.post("/sign-in", async (req, res) => {
     // Avoid storing the password, even in hashed format, in the session
     // If there is other data you want to save to `req.session.user`, do so here!
     req.session.user = {
-        username: userInDatabase.username,
+        name: userInDatabase.username,
         id: userInDatabase._id.toString()
     };
       

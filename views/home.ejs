@@ -1,4 +1,5 @@
 <%- include('partials/head.ejs')%>
+
 <div class="main">
 
     <div class="page-title">
@@ -6,9 +7,12 @@
     </div>
         
     <% allCars.forEach(x=>{ %>
-        <div class="home-car">
-            <h1 class="text-center"><a href='/cars/<%= x._id%>'><%= x.name%></a></h1>
-        </div> 
+        <a href='/cars/<%= x._id%>'>
+            <div class="home-car">
+                <img src="<%= x.pictureUrl %>" alt="">
+                <h1 class="text-center"><%= x.name%></h1>
+            </div>
+        </a>
     <% }) %>
 
 </div>
