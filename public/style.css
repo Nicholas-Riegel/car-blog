@@ -7,6 +7,7 @@
 
 body{
     /* background-color: rgb(115, 115, 228); */
+    font-family: helvetica, sans-serif;
     background-image: url("https://i.imgur.com/Pb0vn1U.jpeg");
     background-size: cover;
     background-position: center;
@@ -22,15 +23,23 @@ body a{
 nav{
     position: fixed;
     display: flex;
-    padding: 10px 20px;
-    background-color: gray;
-    color: white;
+    padding: 20px 60px;
+    background-color: rgb(42, 41, 59);
+    opacity: .8;
+    color: whitesmoke;
     width: 100%;
     top: 0;
+    font-size: large;
+    font-weight:bold;
 }
 
 nav a{
     color:white;
+    text-decoration: none;
+}
+
+nav a:hover{
+    color: rgb(174, 227, 227);
 }
 
 .auth-group{
@@ -38,12 +47,16 @@ nav a{
     margin-left: auto;
 }
 
+.auth-group p{
+    /* margin-right: 30px; */
+}
+
 .auth-group a{
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .main{
-    margin-top: 50px;
+    margin-top: 70px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,14 +75,32 @@ img{
 .home-car{
     /* width: 33%; */
     margin-bottom: 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.home-car h1{
-    background-color: black;
+.home-car:hover {
+    border: 1px solid whitesmoke;
+}
+
+.home-car-text-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 5px 10px;
+    background-color: rgb(81, 75, 75);
 }
 
 .show-car{
     /* width: 33%; */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.show-car p {
+    padding: 5px 10px;
+    background-color: rgb(81, 75, 75);
 }
 
 .comments-container{
@@ -85,7 +116,45 @@ img{
     padding: 10px 20px;
 }
 
-form{
+.auth-form{
     display: flex;
     flex-direction: column;
+    background-color: whitesmoke;
+    /* opacity: .7; */
+    width: 500px;
+    color: black;
+    padding: 40px;
+    justify-content: space-around;
+    border-radius: 10px;
+}
+
+.auth-form button {
+    /* margin-left: auto; */
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    align-self: flex-end;
+    /* margin-top: 10px; */
+    font-size: large;
+    font-weight: 600;
+}
+      
+.auth-form button:hover {
+    background-color: #2980b9;
+}
+      
+.auth-form label{
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: 400;
+}
+
+.auth-form input {
+    width: 100%;
+    border-radius: 5px;
+    height: 30px;
+    border: 1px solid black;
 }

@@ -1,26 +1,29 @@
 <%- include('partials/head.ejs')%>
 <div class="main">
+
     <div class="page-title">
-        <h1>SHOW PAGE</h1>
+        <h1><%= car.name %></h1>
     </div>
 
     <!-- display car -->
     <div class="show-car">
 
-        <h1><%= car.name %></h1>
         <img src=<%= car.pictureUrl %> alt="">
         <p><%= car.description %></p>
+        
+    </div>
 
+    <!-- comment input -->
+    
         <% if (user && car.userId.toString() === user.id){ %>
             
             <form action="/cars/<%= car._id%>/?_method=DELETE" method="POST">
-                <button type="submit" >Delete</button>
+                <button type="submit">Delete</button>
                 <a href="/cars/<%= car._id%>/edit" >Edit</a>
             </form>
             
         <% }%>
             
-    </div>
         
         <!-- make post -->
         

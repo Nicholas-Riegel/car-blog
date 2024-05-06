@@ -7,10 +7,12 @@
     </div>
         
     <% allCars.forEach(x=>{ %>
-        <a href='/cars/<%= x._id%>'>
-            <div class="home-car">
+        <a href='/cars/<%= x._id%>' class="home-car">
+            <div>
                 <img src="<%= x.pictureUrl %>" alt="">
-                <h1 class="text-center"><%= x.name%></h1>
+                <div class="home-car-text-box">
+                    <h3 class=""><%= x.name%></h3>
+                </div>
             </div>
         </a>
     <% }) %>

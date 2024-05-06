@@ -110,14 +110,11 @@ app.delete('/cars/:id', async (req, res)=>{
 
 // POST	/cars/:carId/posts	Create	Add a new post to the list.
 app.post('/cars/:carId/posts', async (req, res)=>{
-    // console.log('from post route', req.session.user);
     const userId = req.session.user.id.toString()
     await Post.create({
-        // title: req.body['post-title'],
         authorName: req.body['author-name'],
         body: req.body['post-body'],
         carId: req.params.carId,
-        // userId: req.body.userId
         userId
     })
     res.redirect(`/cars/${req.params.carId}`)
