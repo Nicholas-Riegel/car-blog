@@ -10,7 +10,12 @@ const User = require("../models/user.js");
 // the /auth part of the url is already defined in the server
 
 router.get("/sign-up", (req, res) => {
-    res.render("auth/sign-up.ejs", {user: false});
+    res.render("auth/sign-up.ejs", {
+        user: false,
+        usernameError: false,
+        passwordError: false,
+        username: null, 
+    });
 });
 
 router.post("/sign-up", async (req, res) => {
@@ -18,11 +23,21 @@ router.post("/sign-up", async (req, res) => {
     const userInDatabase = await User.findOne({ username: req.body.username });
     
     if (userInDatabase) {
-        return res.send("Username already taken.");
+        // return res.send("Username already taken.");
+        return res.render('auth/sign-up.ejs', {
+            user: false,
+            usernameError: "Username already taken.",
+            passwordError: false
+        });
     }
     
     if (req.body.password !== req.body.confirmPassword) {
-        return res.send("Password and Confirm Password must match");
+        return res.render("auth/sign-up.ejs", {
+                username: req.body.username,
+                user: false,
+                usernameError: false,
+                passwordError: "Passwords do not match."
+        });
     }
 
     const hashedPassword = bcrypt.hashSync(req.body.password, 10);
@@ -46,7 +61,10 @@ router.post("/sign-up", async (req, res) => {
 });
 
 router.get("/sign-in", (req, res) => {
-    res.render("auth/sign-in.ejs", {user: false});
+    res.render("auth/sign-in.ejs", {
+        user: false,
+        errorMessage: null
+    });
 });
 
 router.post("/sign-in", async (req, res) => {
@@ -54,7 +72,10 @@ router.post("/sign-in", async (req, res) => {
     const userInDatabase = await User.findOne({ username: req.body.username });
 
     if (!userInDatabase) {
-        return res.send("Login failed. Please try again.");
+        return res.render('auth/sign-in.ejs', {
+            user: false,
+            errorMessage: "Username or password incorrect."
+        });
     }
 
     const validPassword = bcrypt.compareSync(
@@ -63,12 +84,12 @@ router.post("/sign-in", async (req, res) => {
     );
     
     if (!validPassword) {
-        return res.send("Login failed. Please try again.");
+        return res.render('auth/sign-in.ejs', {
+            user: false,
+            errorMessage: "Username or password incorrect."
+        });
     }
     
-    // There is a user AND they had the correct password. Time to make a session!
-    // Avoid storing the password, even in hashed format, in the session
-    // If there is other data you want to save to `req.session.user`, do so here!
     req.session.user = {
         name: userInDatabase.username,
         id: userInDatabase._id.toString()

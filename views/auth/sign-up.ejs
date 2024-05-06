@@ -6,15 +6,27 @@
     <form action="/auth/sign-up" method="POST" class="auth-form">
       
         <label for="username">Username:<br>
-            <input type="text" name="username" id="username" />
+            <% if (usernameError) { %>
+                <input type="text" name="username" id="username" style="color: red;" value="<%= usernameError %>" required/>
+            <% } else { %>
+                <input type="text" name="username" id="username" value="<%= username ? username : "" %>" required/>
+            <% } %>
         </label>
-      
+                
         <label for="password">Password:<br>
-            <input type="password" name="password" id="password" />
+            <% if (passwordError) { %>
+                <input type="text" name="password" id="password" style="color: red;" value="<%= passwordError %>" required/>
+            <% } else { %>
+                <input type="password" name="password" id="password" required/>
+            <% } %>
         </label>
       
         <label for="confirmPassword">Confirm Password:<br>
-            <input type="password" name="confirmPassword" id="confirmPassword" />
+            <% if (passwordError) { %>
+                <input type="text" name="confirmPassword" id="confirmPassword" style="color: red;" value="<%= passwordError %>" required/>
+            <% } else { %>
+                <input type="password" name="password" id="password" required/>
+            <% } %>
         </label>
       
         <button type="submit" class="submit-btn">Sign up</button>
@@ -22,4 +34,29 @@
 
 </main>
 
+<script>
+
+    document.getElementById('username').addEventListener('click', function() {
+        document.getElementById('username').value = '';
+        document.getElementById('username').style.color = 'black';
+    });
+
+    document.getElementById('password').addEventListener('click', passwordEventHandler)
+    document.getElementById('password').addEventListener('focus', passwordEventHandler)
+    
+    document.getElementById('confirmPassword').addEventListener('click', confirmPasswordEventHandler)
+    document.getElementById('confirmPassword').addEventListener('focus', confirmPasswordEventHandler)
+
+    function passwordEventHandler(){
+        document.getElementById('password').value = '';
+        document.getElementById('password').style.color = 'black';
+        document.getElementById('password').type = 'password';
+    }
+
+    function confirmPasswordEventHandler(){
+        document.getElementById('confirmPassword').value = '';
+        document.getElementById('confirmPassword').style.color = 'black';
+        document.getElementById('confirmPassword').type = 'password';
+    }
+</script>
 <%- include('../partials/foot')%>

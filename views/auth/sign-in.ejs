@@ -6,14 +6,39 @@
     </div>
     <form action="/auth/sign-in" method="POST" class="auth-form">
         <label for="username">Username:<br>
-            <input type="text" name="username" id="username" />
+            <% if (errorMessage) { %>
+                <input type="text" name="username" id="username" style="color: red;" value="<%= errorMessage %>" required/>
+            <% } else {%>
+                <input type="text" name="username" id="username" required/>
+            <% } %>
         </label>
         <label for="password">Password:<br>
-            <input type="password" name="password" id="password" />
+            <% if (errorMessage) { %>
+                <input type="text" name="password" id="password" style="color: red;" value="<%= errorMessage %>" required/>
+            <% } else {%>
+                <input type="password" name="password" id="password" required/>
+            <% } %>
         </label>
         <button type="submit" class="submit-btn">Sign in</button>
     </form>
 
 </main>
+<script>
 
+    document.getElementById('username').addEventListener('click', usernameEventHandler)
+    document.getElementById('username').addEventListener('focus', usernameEventHandler)
+    document.getElementById('password').addEventListener('click', passwordEventHandler)
+    document.getElementById('password').addEventListener('focus', passwordEventHandler)
+
+    function usernameEventHandler(){
+        document.getElementById('username').value = '';
+        document.getElementById('username').style.color = 'black';
+    }
+
+    function passwordEventHandler(){
+        document.getElementById('password').value = '';
+        document.getElementById('password').style.color = 'black';
+        document.getElementById('password').type = 'password';
+    }
+</script>
 <%- include('../partials/foot')%>
