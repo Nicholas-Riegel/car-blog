@@ -13,7 +13,6 @@ const port = 3002
 
 const Car = require('./models/car')
 const Post = require('./models/post')
-const User = require('./models/user')
 const authController = require("./controllers/auth.js");
 const isSignedIn = require('./middleware/is-signed-in.js')
 
@@ -46,7 +45,7 @@ mongoose.connection.on('connected', ()=>{
 // Authorization
 app.use("/auth", authController);
 
-// GET	/cars	Read	index	Display a list of all cars.
+// GET	/cars	Display homepage with list of all cars.
 app.get('/cars', async (req, res)=>{
     const allCars = await Car.find();
     res.render('home.ejs', {
@@ -55,7 +54,7 @@ app.get('/cars', async (req, res)=>{
     })
 })
 
-// GET	/cars/new	Read	Show a form to add a new car.
+// GET	/cars/new	Show a form to add a new car.
 app.get('/cars/new', isSignedIn, (req, res)=>{
     if (req.session.user){
         res.render('newCar.ejs', {user: req.session.user})
@@ -64,7 +63,7 @@ app.get('/cars/new', isSignedIn, (req, res)=>{
     }
 })
 
-// POST	/car	Create	Add a new car to the list.
+// POST	/car   Add a new car to the list.
 app.post('/cars', isSignedIn, async (req, res)=>{
     await Car.create({
         name: req.body['car-name'],
@@ -75,7 +74,7 @@ app.post('/cars', isSignedIn, async (req, res)=>{
     res.redirect('/cars')
 })
 
-// GET	/car/:id	Read	show	Display a specific car’s details.
+// GET	/car/:id	Display a specific car’s details and all posts.
 app.get('/cars/:id', async (req, res) => {
     const user = req.session.user;
     const car = await Car.findById(req.params.id)
@@ -87,14 +86,14 @@ app.get('/cars/:id', async (req, res) => {
     })
 })
 
-// GET	/car/:id/edit	Read	edit	Show a form to edit an existing car’s details.
+// GET	/car/:id/edit	Show a form to edit an existing car’s details.
 app.get('/cars/:id/edit', isSignedIn, async (req, res)=>{
     const user = req.session.user;
     const car = await Car.findById(req.params.id)
     res.render('editCar.ejs', {car, user})
 })
 
-// PUT	/blog/:id	Update	update	Update a specific car’s details.
+// PUT	/blog/:id	Update a car’s details.
 app.put('/cars/:id', isSignedIn, async (req, res)=>{
     await Car.findByIdAndUpdate(req.params.id, {
         name: req.body['car-name'],
@@ -104,7 +103,7 @@ app.put('/cars/:id', isSignedIn, async (req, res)=>{
     res.redirect(`/cars/${req.params.id}`)
 })
 
-// DELETE	/car/:id	Delete	delete	Remove a specific car from the list.
+// DELETE	/car/:id	Delete a car from the list.
 app.delete('/cars/:id', isSignedIn, async (req, res)=>{
     await Car.findByIdAndDelete(req.params.id)
     await Post.deleteMany({carId: req.params.id})
@@ -114,7 +113,7 @@ app.delete('/cars/:id', isSignedIn, async (req, res)=>{
 
 // COMMENT-POST ROUTES
 
-// POST	/cars/:carId/posts	Create	Add a new post to the list.
+// POST	/cars/:carId/posts	Add a new post under a car
 app.post('/cars/:carId/posts', isSignedIn, async (req, res)=>{
     const userId = req.session.user.id.toString()
     await Post.create({
@@ -126,7 +125,7 @@ app.post('/cars/:carId/posts', isSignedIn, async (req, res)=>{
     res.redirect(`/cars/${req.params.carId}`)
 })
 
-// GET	/cars/:carId/posts/:postId/edit	Read	edit	Show a form to edit an existing car’s details.
+// GET	/cars/:carId/posts/:postId/edit	   Show a form to edit an existing post
 app.get('/cars/:carId/posts/:postId/edit', isSignedIn, async (req, res)=>{
     const post = await Post.findById(req.params.postId)
     if (req.session.user){
@@ -140,7 +139,7 @@ app.get('/cars/:carId/posts/:postId/edit', isSignedIn, async (req, res)=>{
     }
 })
 
-// PUT	/cars/:carId/posts/:postId	Update	update	Update a specific car’s details.
+// PUT	/cars/:carId/posts/:postId	    Update a post
 app.put('/cars/:carId/posts/:postId', isSignedIn, async (req, res)=>{
     await Post.findByIdAndUpdate(req.params.postId, {
         title: req.body['post-title'],
@@ -149,7 +148,7 @@ app.put('/cars/:carId/posts/:postId', isSignedIn, async (req, res)=>{
     res.redirect(`/cars/${req.params.carId}`)
 })
 
-// DELETE	/cars/:carId/posts/:postId	Delete	delete	Remove a specific car from the list.
+// DELETE	/cars/:carId/posts/:postId	Delete a post
 app.delete('/cars/:carId/posts/:postId', isSignedIn, async (req, res)=>{
     await Post.findByIdAndDelete(req.params.postId)
     res.redirect(`/cars/${req.params.carId}`)
