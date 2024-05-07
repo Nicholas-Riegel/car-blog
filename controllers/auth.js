@@ -1,11 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const User = require("../models/user.js");
 
 router.use(express.static('public'));
-
-
-const User = require("../models/user.js");
 
 // the /auth part of the url is already defined in the server
 
@@ -23,7 +21,6 @@ router.post("/sign-up", async (req, res) => {
     const userInDatabase = await User.findOne({ username: req.body.username });
     
     if (userInDatabase) {
-        // return res.send("Username already taken.");
         return res.render('auth/sign-up.ejs', {
             user: false,
             usernameError: "Username already taken.",

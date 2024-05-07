@@ -67,7 +67,6 @@ nav{
     display: flex;
     padding: 20px 60px;
     background-color: rgb(42, 41, 59);
-    /* opacity: .8; */
     color: white;
     width: 100%;
     top: 0;
@@ -80,12 +79,10 @@ nav > a {
 }
 
 nav a{
-    /* color:white; */
     text-decoration: none;
 }
 
 nav a:hover{
-    /* color: rgb(174, 227, 227); */
     color: red;
 }
 
@@ -120,7 +117,6 @@ img{
 /* homepage */
 
 .home-car{
-    /* width: 33%; */
     margin-bottom: 20px;
     text-decoration: none;
     border-radius: 10px;
@@ -215,8 +211,6 @@ img{
 
 .auth-form button {
     align-self: flex-end;
-    /* font-size: large;
-    font-weight: 600; */
 }
       
 .auth-form button:hover {
@@ -237,6 +231,7 @@ img{
 }
 
 /* new car form */
+
 .new-car-form {
     display: flex;
     flex-direction: column;
