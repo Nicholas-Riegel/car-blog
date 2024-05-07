@@ -98,6 +98,7 @@ app.get('/cars/:id/edit', isSignedIn, async (req, res)=>{
 app.put('/cars/:id', isSignedIn, async (req, res)=>{
     await Car.findByIdAndUpdate(req.params.id, {
         name: req.body['car-name'],
+        pictureUrl: req.body["picture-url"],
         description: req.body['car-description']
     })
     res.redirect(`/cars/${req.params.id}`)

@@ -5,15 +5,15 @@
     
     <form action="/cars" method="POST" class="new-car-form">
         <label for="car-name">Car Name<br>
-            <input type="text" id="car-name" name="car-name"><br>
+            <input type="text" id="car-name" name="car-name" required><br>
         </label><br>
         
         <label for="picture-url">Picture URL<br>
-            <input type="text" id="picture-url" name="picture-url">
+            <input type="text" id="picture-url" name="picture-url" required>
         </label><br>
         
         <label for="car-description">Car Description<br>
-            <textarea name="car-description" id="car-description" cols="30" rows="10"></textarea>
+            <textarea name="car-description" id="car-description" cols="30" rows="10" required></textarea>
         </label><br>
         <button type="submit" class="submit-btn">Submit</button>
     </form>
