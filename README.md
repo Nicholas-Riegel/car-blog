@@ -2,7 +2,7 @@
 
 ## Users may post their favorite cars and discuss them in a comment section. 
 
-Project is hosted on AWS and may be viewd at http://18.225.254.20:3002/cars
+Project is hosted on AWS and may be viewd at http://147.93.118.154:3002/cars
 
 Features:
 * user athentication: sign up and sign in with username and password
