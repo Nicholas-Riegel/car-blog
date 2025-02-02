@@ -7,7 +7,7 @@ require('dotenv').config()
 const methodOverride = require('method-override')
 const session = require('express-session')
 const MongoStore = require("connect-mongo");
-const port = 3002
+const port = process.env.PORT;
 
 //-----------------------------Models and Controllers---------------------------------------------
 
